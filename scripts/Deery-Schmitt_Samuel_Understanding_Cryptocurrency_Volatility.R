@@ -5,19 +5,51 @@
 #               Huang, Cliff
 #               Onyeugbo, Glory
 ###############################################
+
+packrat::init()
+
+# if packrat::init() fails then run the pkg install function and then run packrat::init()
+
+# List the packages to install
+pkg <- c("packrat", "dplyr", "viridis", "Interpol.T", "lubridate", "ggExtra", "tidyr", "reshape2", "grid", "gridExtra", "lattice", "e1071")
+
+# Use this function to install packages
+install_if_missing <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
+}
+
+# Now apply the function on the packages
+install_if_missing(pkg)
+
 # libraries
-library(ggplot2)
-library(dplyr)
-library(viridis)
-library(Interpol.T)
-library(lubridate)
-library(ggExtra)
-library(tidyr)
-library(reshape2)
-library(grid)
-library(gridExtra)
-library(lattice)
-library(e1071)
+
+require(ggplot2)
+require(dplyr)
+require(viridis)
+require(Interpol.T)
+require(lubridate)
+require(ggExtra)
+require(tidyr)
+require(reshape2)
+require(grid)
+require(gridExtra)
+require(lattice)
+require(e1071)
+
+# run if having issues
+# unlink("./packrat", recursive = TRUE)
+# packrat::clean()
+# packrat::restore()
+
+packrat::snapshot()
+
+# run this if getting wrong snapshot
+# packrat::snapshot(ignore.stale=TRUE)
+
+
 ###############################################
 # data
 # subset of the csv files available from
